@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="fm.apps.kirtsim.nonogramcheat.SolveUIFragment"
+    android:weightSum="10">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5">
+        <TextView
+            android:id="@+id/solveStatusHeadingTV"
+            android:text="@string/solve_in_progress_title"
+            android:textColor="#000F0F"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/solveProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
+        <FrameLayout
+            android:id="@+id/image_view_holder"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/color_brown_dark"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:id="@+id/solve_status_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/wait_icon_w_48"
+                android:contentDescription="@string/solve_icon_desc"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/statusTV"
+            android:text="@string/wait_while_solving_title"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/image_view_holder"/>
+
+        <Chronometer
+            android:id="@+id/solve_timer"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/statusTV"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/result_button"
+            android:text="@string/show_results"
+            android:background="@color/color_brown_light"
+            android:textColor="@color/color_brown_dark"
+            android:visibility="invisible"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
+    </FrameLayout>
+    <Button
+        android:id="@+id/statistics_button"
+        android:text="@string/statistics_button"
+        android:background="@color/color_brown_light"
+        android:textColor="@color/color_brown_dark"
+        android:visibility="invisible"
+        android:clickable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

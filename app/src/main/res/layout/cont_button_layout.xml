@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/continueButtonGrid"
+    android:text="@string/continueB"
+    android:textStyle="bold|italic"
+    android:textColor="@color/color_brown_dark"
+    android:background="@color/color_brown_light"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    tools:showIn="@layout/activity_puzzle_input" />

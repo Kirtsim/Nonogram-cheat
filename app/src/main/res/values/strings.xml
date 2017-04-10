@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Nonogram Cheat</string>
+
+    <string name="continueB">CONTINUE</string>
+    <string name="show_results">SOLUTION</string>
+    <string name="num_of_rows">Rows:</string>
+    <string name="num_of_cols">Columns:</string>
+
+
+    <string name="solve_in_progress_title">SOLVING IN PROGRESS</string>
+    <string name="solving_finished_title">SOLVING FINISHED</string>
+    <string name="solution_found">SOLUTION FOUND</string>
+    <string name="no_sol_found">NO SOLUTION WAS FOUND</string>
+    <string name="wait_while_solving_title">PLEASE WAIT</string>
+
+    <string name="incorrect_descs">There %1$s %2$d incorrect description %3$s!</string>
+    <string name="is">is</string>
+    <string name="are">are</string>
+    <string name="line_txt">line</string>
+    <string name="lines_txt">lines</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="number_dummy">14</string>
+    <string name="puzzle_load_err">Could not load puzzles</string>
+    <string name="delete_menu_it">Delete</string>
+    <string name="share_menu_it">Share</string>
+    <string name="save_menu_it">Save</string>
+    <string name="home_action_item">Home</string>
+    <string name="solve_icon_desc">little solve icon</string>
+    <string name="statistics_button">STATISTICS</string>
+    <string name="label_use_of_backtracking">Use of backtracking:</string>
+    <string name="label_stack_load">Max. backtracking stack load:</string>
+    <string name="label_total_time">Total solving time:</string>
+    <string name="label_line_solving_time">Total time solving puzzle lines:</string>
+    <string name="label_back_track_iter">Backtracking iterations in total:</string>
+    <string name="label_lines_processed">Processed puzzle lines in total:</string>
+    <string name="return_button">RETURN</string>
+    <string name="button_new_text">NEW</string>
+    <string name="button_gallery_text">GALLERY</string>
+    <string name="solve_button_text">SOLVE</string>
+    <string name="puzzle_size_title">PUZZLE SIZE</string>
+    <string name="puzzle_preview_description">thumbnail for saved puzzle image</string>
+    <string name="dummy_date">25/02/2016</string>
+    <string name="saved_puzzle_image_description">saved puzzle image</string>
+    <string name="puzzletool_spinner_image">image in the puzzle tools</string>
+    <string name="check_input_warning">Please make sure the input is correct!</string>
+
+</resources>

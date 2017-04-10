@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/puzzle_toolLayoutFL"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_gravity="center">
+
+    <ImageButton
+        android:id="@+id/move_paint_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/move_b_24"/>
+
+    <TextView
+        android:id="@+id/puzzle_toolTextView"
+        android:text="@string/number_dummy"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/color_brown_dark"
+        android:textStyle="bold|italic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        tools:ignore="RelativeOverlap" />
+
+    <SeekBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/descSetterSB"
+        android:max="29"
+        android:progress="15"
+        android:layout_below="@+id/puzzle_toolTextView"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true">
+    </SeekBar>
+    <Spinner
+        android:id="@+id/paint_tools_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"/>
+</RelativeLayout>

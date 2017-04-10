@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fm.apps.kirtsim.nonogramcheat.SquareRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="2dp">
+    <ImageView
+        android:id="@+id/gi_puzzPreviewIV"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/puzzle_preview_description" />
+    <LinearLayout
+        android:id="@+id/list_row_label"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/gi_puzzPreviewIV"
+        android:background="#fff">
+        <TextView
+            android:id="@+id/list_item_dateTV"
+            android:text="@string/dummy_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</fm.apps.kirtsim.nonogramcheat.SquareRelativeLayout>
