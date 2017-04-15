@@ -28,7 +28,7 @@ public class BackTracker {
     private byte[] lastPixel;
 
     private final StacksLoader  stacksLoader;
-    private boolean continueSolving;
+    private volatile boolean continueSolving;
 
     private long totalSolvingTime;
     private int backTrackIterations;

@@ -110,7 +110,7 @@ public class PuzzleView extends View {
         vDescriptions = new DescriptionGridPainter(DescriptionGridPainter.VERTICAL);
         puzzleCells = new CellsGridPainter();
         puzzleCells.setFlagColor(Color.parseColor("#3E2723"));
-        puzzleCells.setDisplayFlags(true, true);
+        puzzleCells.setDisplayFlags(true);
         hDescriptions.setBackgroundColor(Color.parseColor("#A1887F"));
         hDescriptions.setHighlightColor(Color.parseColor("#E57373"));
         vDescriptions.setBackgroundColor(Color.parseColor("#A1887F"));

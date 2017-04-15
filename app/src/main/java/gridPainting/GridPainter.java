@@ -4,9 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+
+
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  *
@@ -25,8 +25,7 @@ public abstract class GridPainter {
     private int backgroundColor;
     private static final int LINE_COLOR = Color.parseColor("#3E2723");
     private static final int FLAG_COLOR = Color.parseColor("#D7CCC8");
-    private boolean includeHorizontalFlags;
-    private boolean includeVerticalFlags;
+    private boolean includeFlags;
     private int cellSizeMIN;
     int cellSize;
 
@@ -42,8 +41,15 @@ public abstract class GridPainter {
 
     private int selectionColor;
     private Point selectionCellTopLeft, selectionCellBottomRight;
+    private BlockLinesPainter blockLinesPainter;
+    private LineVisibilityCalculator rowVisibilityEvaluator;
+    private LineVisibilityCalculator colVisibilityEvaluator;
     byte[][] cells;
 
+    private final BlockLinesPainter.LinePaintConsumer columnLinesDrawing = (c, x) ->
+            c.drawLine(x, yFirstRowToDraw, x, yLastRowToDraw, paint);
+    private final BlockLinesPainter.LinePaintConsumer rowLinesDrawing = (c, y) ->
+            c.drawLine(xFirstColToDraw, y, xLastColToDraw, y, paint);
 
 
 
@@ -52,21 +58,47 @@ public abstract class GridPainter {
     }
 
     private void defaultInit() {
+        initializeMainPaint();
+        initializePaintForFlags();
+        backgroundColor = Color.parseColor("#D7CCC8");
+        initializeLineVisibilityEvaluators();
+        blockLinesPainter = new BlockLinesPainter();
+        selectionCellBottomRight = new Point(-1, -1);
+        selectionCellTopLeft = new Point(-1, -1);
+        cells = new byte[0][0];
+    }
+
+    private void initializeMainPaint() {
         paint = new Paint();
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(5);
         paint.setColor(Color.BLACK);
+    }
+
+    private void initializePaintForFlags() {
         flagPaint = new Paint();
         flagPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         flagPaint.setStrokeCap(Paint.Cap.ROUND);
         flagPaint.setStrokeWidth(5);
         flagPaint.setColor(FLAG_COLOR);
         flagPaint = new Paint();
-        backgroundColor = Color.parseColor("#D7CCC8");
-        selectionCellBottomRight = new Point(-1, -1);
-        selectionCellTopLeft = new Point(-1, -1);
-        cells = new byte[0][0];
+    }
+
+    private void initializeLineVisibilityEvaluators() {
+        LineVisibilityCalculator.Builder builder = new LineVisibilityCalculator.Builder();
+        colVisibilityEvaluator = builder.linesAreRows(false)
+                .firstVisibleCoordinateAssigner(x -> xFirstColToDraw = x)
+                .lastVisibleCoordinateAssigner(x -> xLastColToDraw = x)
+                .firstVisibleLineAssigner(line -> firstVisCol = line)
+                .lastVisibleLineAssigner(line -> lastVisCol = line)
+                .build();
+        rowVisibilityEvaluator = builder.linesAreRows(true)
+                .firstVisibleCoordinateAssigner(y -> yFirstRowToDraw = y)
+                .lastVisibleCoordinateAssigner(y -> yLastRowToDraw = y)
+                .firstVisibleLineAssigner(line -> firstVisRow = line)
+                .lastVisibleLineAssigner(line -> lastVisRow = line)
+                .build();
     }
 
     public byte[][] getCells() {
@@ -84,7 +116,6 @@ public abstract class GridPainter {
     public int getRowCount() {
         return this.rowCount;
     }
-
 
     public int getXOffset() {
         return xOffset;
@@ -161,9 +192,8 @@ public abstract class GridPainter {
         this.flagPaint.setColor(color);
     }
 
-    public void setDisplayFlags(boolean horizontal, boolean vertical) {
-        this.includeHorizontalFlags = horizontal;
-        this.includeVerticalFlags = vertical;
+    public void setDisplayFlags(boolean display) {
+        this.includeFlags = display;
     }
 
     public void setSize(int rows, int cols) {
@@ -211,8 +241,8 @@ public abstract class GridPainter {
             drawBackground(canvas);
             highlightLines(canvas);
             paint.setColor(LINE_COLOR);
-            drawRows(canvas);
-            drawColumns(canvas);
+            drawLines(canvas, yFirstRowToDraw, yLastRowToDraw, rowLinesDrawing);
+            drawLines(canvas, xFirstColToDraw, xLastColToDraw, columnLinesDrawing);
             paintCells(canvas);
             paintBlockLines(canvas);
             drawSelectionArea(canvas);
@@ -263,53 +293,27 @@ public abstract class GridPainter {
         if (cellSize > 0) {
             xViewScroll = scrollX;
             yViewScroll = scrollY;
-            calculateColsVisibility();
-            calculateRowsVisibility();
+            assignVisibilitiesOfLines();
             if (hasCellsMatrixSizeChanged())
-                resizeCellsMatrix();
+                resizeCellMatrix();
         }
     }
 
-    private void calculateColsVisibility() {
-        final int relXOffset = xOffset + xViewScroll;
-        if (relXOffset < xViewStart) {
-            xFirstColToDraw = xOffset + ((xViewStart - relXOffset) / cellSize) * cellSize;
-            firstVisCol = (xFirstColToDraw - xOffset) / cellSize + 1;
-        } else {
-            xFirstColToDraw = xOffset;
-            firstVisCol = 1;
-        }
-        final int xGridEnd = xOffset + (colCount * cellSize);
-        final int relXGridEnd = xGridEnd + xViewScroll;
-        if (relXGridEnd > xViewEnd) {
-            xLastColToDraw = xGridEnd - (((relXGridEnd - xViewEnd) / cellSize) * cellSize);
-            lastVisCol = (xLastColToDraw - xOffset)/cellSize;
-        } else {
-            xLastColToDraw = xGridEnd;
-            lastVisCol = colCount;
-        }
-    }
+    private void assignVisibilitiesOfLines() {
+        rowVisibilityEvaluator.offset(yOffset);
+        rowVisibilityEvaluator.viewScroll(yViewScroll);
+        rowVisibilityEvaluator.viewBounds(yViewStart, yViewEnd);
+        rowVisibilityEvaluator.lineCount(rowCount);
+        rowVisibilityEvaluator.cellSize(cellSize);
+        rowVisibilityEvaluator.computeAndUpdate();
 
-    private void calculateRowsVisibility() {
-        final int relYOffset = yOffset + yViewScroll;
-        if (relYOffset < yViewStart) {
-            yFirstRowToDraw = yOffset + ((yViewStart - relYOffset) / cellSize) * cellSize;
-            firstVisRow = (yFirstRowToDraw - yOffset) / cellSize;
-        } else {
-            yFirstRowToDraw = yOffset;
-            firstVisRow = 0;
-        }
-        final int yGridEnd = yOffset + (rowCount * cellSize);
-        final int relYGridEnd = yGridEnd + yViewScroll;
-        if (yViewEnd < relYGridEnd) {
-            yLastRowToDraw = yGridEnd - (((relYGridEnd - yViewEnd) / cellSize) * cellSize);
-            lastVisRow = (yLastRowToDraw - yOffset) / cellSize - 1;
-        } else {
-            yLastRowToDraw = yGridEnd;
-            lastVisRow = rowCount - 1;
-        }
+        colVisibilityEvaluator.offset(xOffset);
+        colVisibilityEvaluator.viewScroll(xViewScroll);
+        colVisibilityEvaluator.viewBounds(xViewStart, xViewEnd);
+        colVisibilityEvaluator.lineCount(colCount);
+        colVisibilityEvaluator.cellSize(cellSize);
+        colVisibilityEvaluator.computeAndUpdate();
     }
-
 
     private boolean hasCellsMatrixSizeChanged() {
         if (cells.length > 0)
@@ -319,7 +323,7 @@ public abstract class GridPainter {
         return false;
     }
 
-    private void resizeCellsMatrix() {
+    private void resizeCellMatrix() {
         final byte[][] original = cells;
         cells = new byte[rowCount][colCount + 1];
 
@@ -348,19 +352,12 @@ public abstract class GridPainter {
         canvas.drawRect(xFirstColToDraw, yFirstRowToDraw, xLastColToDraw, yLastRowToDraw, paint);
     }
 
-    private void drawRows(Canvas canvas) {
-        int currentY = yFirstRowToDraw;
-        while (currentY <= yLastRowToDraw) {
-            canvas.drawLine(xFirstColToDraw, currentY, xLastColToDraw, currentY, paint);
-            currentY += cellSize;
-        }
-    }
-
-    private void drawColumns(Canvas canvas) {
-        int currentX = xFirstColToDraw;
-        while (currentX <= xLastColToDraw) {
-            canvas.drawLine(currentX, yFirstRowToDraw, currentX, yLastRowToDraw, paint);
-            currentX += cellSize;
+    private void drawLines(final Canvas canvas, int startPosition, final int upperBound,
+                           BlockLinesPainter.LinePaintConsumer lineDrawing) {
+        int currentPosition = startPosition;
+        while (currentPosition <= upperBound) {
+            lineDrawing.accept(canvas, currentPosition);
+            currentPosition += cellSize;
         }
     }
 
@@ -369,8 +366,6 @@ public abstract class GridPainter {
             return cells[0].length - originalDescs[0].length;
         return 1;
     }
-
-
 
     protected abstract boolean considerCellValueWhenResizingCellMatrix(int row, int col, int value);
 
@@ -387,41 +382,40 @@ public abstract class GridPainter {
         }
     }
 
-
-
     private void paintBlockLines(Canvas canvas) {
         paint.setColor(LINE_COLOR);
         final float originalStrokeW = paint.getStrokeWidth();
         paint.setStrokeWidth(originalStrokeW + (originalStrokeW * 0.7f));
-        final int block = 5 * cellSize;
-        int currentX = getFirstVisibleBlockStart(xOffset, xFirstColToDraw);
-        int currentFlag = (currentX - xOffset) / cellSize;
-        int flagPos = Math.min(yViewEnd - yViewScroll, yOffset + rowCount * cellSize);
-
-        while (currentX < xLastColToDraw) {
-            canvas.drawLine(currentX, yFirstRowToDraw, currentX, yLastRowToDraw, paint);
-            if (includeHorizontalFlags)
-                canvas.drawText(String.valueOf(currentFlag),currentX, flagPos, flagPaint);
-            currentX += block;
-            currentFlag += 5;
-        }
-        int last = xOffset + (colCount * cellSize);
-        canvas.drawLine(last, yFirstRowToDraw, last, yLastRowToDraw, paint);
-
-        int currentY = getFirstVisibleBlockStart(yOffset, yFirstRowToDraw);
-        currentFlag = (currentY - yOffset) / cellSize;
-        flagPos = Math.min(xViewEnd - xViewScroll, xOffset + colCount * cellSize) - (int)flagPaint.getTextSize();
-        while (currentY < yLastRowToDraw) {
-            canvas.drawLine(xFirstColToDraw, currentY, xLastColToDraw, currentY, paint);
-            if (includeVerticalFlags)
-                canvas.drawText(String.valueOf(currentFlag),flagPos, currentY, flagPaint);
-            currentY += block;
-            currentFlag += 5;
-        }
-        last = yOffset + (rowCount * cellSize);
-        canvas.drawLine(xFirstColToDraw, last, xLastColToDraw, last, paint);
+        adjustBlockLinesPainterBeforePainting(canvas);
+        paintColumnBlockLines(canvas, getFirstVisibleBlockStart(xOffset, xFirstColToDraw));
+        paintRowBlockLines(canvas, getFirstVisibleBlockStart(yOffset, yFirstRowToDraw));
         paint.setStrokeWidth(originalStrokeW);
     }
+
+    private void adjustBlockLinesPainterBeforePainting(Canvas canvas) {
+        blockLinesPainter.drawTo(canvas)
+                .blockSize(5 * cellSize)
+                .includeFlags(includeFlags);
+    }
+
+    private void paintColumnBlockLines(Canvas canvas, final int startX) {
+        blockLinesPainter.startAt(startX)
+                .dontPaintBeyond(xLastColToDraw)
+                .drawLastLineAt(xOffset + (colCount * cellSize))
+                .flagValueStartsWith((startX - xOffset) / cellSize)
+                .positionFlagAt(Math.min(yViewEnd - yViewScroll, yOffset + rowCount * cellSize))
+                .paint(columnLinesDrawing, (flag, x, fPos) -> canvas.drawText(String.valueOf(flag), x, fPos, flagPaint));
+    }
+
+    private void paintRowBlockLines(Canvas canvas, final int startY) {
+        blockLinesPainter.startAt(startY)
+                .dontPaintBeyond(yLastRowToDraw)
+                .drawLastLineAt(yOffset + (rowCount * cellSize))
+                .flagValueStartsWith((startY - yOffset) / cellSize)
+                .positionFlagAt(Math.min(xViewEnd - xViewScroll, xOffset + colCount * cellSize) - (int)flagPaint.getTextSize())
+                .paint(rowLinesDrawing, (flag, y, fPos) -> canvas.drawText(String.valueOf(flag), fPos, y, flagPaint));
+    }
+
 
     private int getFirstVisibleBlockStart(int offset, int firstVisible) {
         if (offset < firstVisible) {
@@ -443,11 +437,11 @@ public abstract class GridPainter {
     }
 
     public void applySelectionValue(int value) {
-        if (selectionCellTopLeft.x != -1) {
-            for (int r = selectionCellTopLeft.x; r <= selectionCellBottomRight.x; r++) {
-                for (int c = selectionCellTopLeft.y; c <= selectionCellBottomRight.y; c++)
-                    onValueChangeAt(r, c, value);
-            }
+        if (selectionCellTopLeft.x == -1)
+            return;
+        for (int r = selectionCellTopLeft.x; r <= selectionCellBottomRight.x; r++) {
+            for (int c = selectionCellTopLeft.y; c <= selectionCellBottomRight.y; c++)
+                onValueChangeAt(r, c, value);
         }
     }
 
@@ -455,12 +449,10 @@ public abstract class GridPainter {
     protected abstract boolean onValueChangeAt(int row, int col, int value);
 
     private Point calculateRowColumn(float x, float y, Point toReturn) {
-        toReturn.x = -1;
-        toReturn.y = -1;
+        toReturn.x = toReturn.y = -1;
         if (areCoordinatesWithingDrawnArea(x, y)) {
             int columnsRel = (int) Math.ceil((x - xFirstColToDraw) / cellSize);
             int rowsRel = (int) Math.ceil((y - yFirstRowToDraw) / cellSize);
-
             toReturn.y = columnsRel + ((xFirstColToDraw - xOffset) / cellSize);
             toReturn.x = rowsRel + ((yFirstRowToDraw - yOffset) / cellSize) - 1;
         }
@@ -476,6 +468,4 @@ public abstract class GridPainter {
     private boolean areIndexesWithinBounds(int row, int col) {
         return (row < cells.length && row > -1) && (col < cells[0].length && col > -1);
     }
-
-
 }
