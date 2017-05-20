@@ -1,4 +1,4 @@
-package db;
+package fm.apps.kirtsim.nonogramcheat.gallery;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -35,7 +35,7 @@ public class PuzzleImage implements Parcelable{
         this.storeLocation = saveLoc;
     }
 
-    PuzzleImage(int id, int rows, int cols, boolean solved, long saveDate, String saveLoc) {
+    public PuzzleImage(int id, int rows, int cols, boolean solved, long saveDate, String saveLoc) {
         this.id = id;
         this.rows = rows;
         this.cols = cols;

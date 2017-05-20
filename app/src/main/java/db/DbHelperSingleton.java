@@ -10,6 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import fm.apps.kirtsim.nonogramcheat.gallery.PuzzleImage;
+
 /**
  *
  * Created by kirtsim on 27/02/2017.
@@ -97,7 +99,7 @@ public class DbHelperSingleton extends SQLiteOpenHelper {
 
     private PuzzleImage extractPuzzleImgFromCursor(Cursor cursor) {
         try {
-            PuzzleImage puzzle =  new PuzzleImage(
+            PuzzleImage puzzle = new PuzzleImage(
                     cursor.getInt(PuzzleImgEntry.I_ID),
                     cursor.getInt(PuzzleImgEntry.I_ROW_COUNT),
                     cursor.getInt(PuzzleImgEntry.I_COL_COUNT),

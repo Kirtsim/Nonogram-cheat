@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name="fm.apps.kirtsim.nonogramcheat.PuzzleInputActivity"
+            android:name="fm.apps.kirtsim.nonogramcheat.user_input.PuzzleInputActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
@@ -40,16 +40,16 @@
         </activity>
 
         <activity
-            android:name="fm.apps.kirtsim.nonogramcheat.SolverActivity"
+            android:name="fm.apps.kirtsim.nonogramcheat.solving.SolverActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="fm.apps.kirtsim.nonogramcheat.PuzzleInputActivity"/>
+                android:value="fm.apps.kirtsim.nonogramcheat.user_input.PuzzleInputActivity"/>
         </activity>
 
         <activity
-            android:name="fm.apps.kirtsim.nonogramcheat.GalleryActivity"
+            android:name="fm.apps.kirtsim.nonogramcheat.gallery.GalleryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <meta-data

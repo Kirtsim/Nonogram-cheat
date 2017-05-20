@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.solving;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import cellsAndDescriptions.PuzzleCentering;
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.gallery.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.MainActivity;
+import fm.apps.kirtsim.nonogramcheat.PuzzleFragment;
+import fm.apps.kirtsim.nonogramcheat.PuzzleView;
+import fm.apps.kirtsim.nonogramcheat.R;
 
 public class SolverActivity extends AppCompatActivity implements SolverFragment.SolverFragmentListener,
                             SolveUIFragment.SolveResultListener, PuzzleFragment.PuzzleFragmentListener,

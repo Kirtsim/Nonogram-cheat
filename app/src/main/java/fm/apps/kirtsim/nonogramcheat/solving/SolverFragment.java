@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.solving;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,7 +9,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import cellsAndDescriptions.PuzzleArraysController;
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.gallery.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.PuzzleView;
 import solver.BackTracker;
 import solver.LineSolver;
 import solver.MyByteQueue;

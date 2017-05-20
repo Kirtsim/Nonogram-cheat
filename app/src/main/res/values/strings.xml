@@ -45,4 +45,7 @@
     <string name="puzzletool_spinner_image">image in the puzzle tools</string>
     <string name="check_input_warning">Please make sure the input is correct!</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

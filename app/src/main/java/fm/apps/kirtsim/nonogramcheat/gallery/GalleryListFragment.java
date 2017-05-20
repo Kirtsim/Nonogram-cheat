@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.gallery;
 
 
 import android.content.Context;
@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import db.DbHelperSingleton;
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.R;
 
 public class GalleryListFragment extends Fragment {
 

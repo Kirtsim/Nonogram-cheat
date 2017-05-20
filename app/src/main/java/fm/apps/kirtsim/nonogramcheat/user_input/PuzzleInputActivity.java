@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.user_input;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,6 +18,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import cellsAndDescriptions.PuzzleCentering;
+import fm.apps.kirtsim.nonogramcheat.MainActivity;
+import fm.apps.kirtsim.nonogramcheat.PuzzleFragment;
+import fm.apps.kirtsim.nonogramcheat.R;
+import fm.apps.kirtsim.nonogramcheat.solving.SolverActivity;
 
 
 public class PuzzleInputActivity extends AppCompatActivity {

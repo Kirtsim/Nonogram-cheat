@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.gallery;
 
 import android.content.Context;
 import android.util.AttributeSet;

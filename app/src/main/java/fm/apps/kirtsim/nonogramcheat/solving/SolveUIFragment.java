@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.solving;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import fm.apps.kirtsim.nonogramcheat.R;
 import solver.Puzzle;
 
 public class SolveUIFragment extends Fragment {

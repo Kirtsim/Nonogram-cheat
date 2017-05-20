@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.user_input;
 
 
 import android.graphics.Point;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import fm.apps.kirtsim.nonogramcheat.R;
 
 
 public class PuzzleSizeFragment extends Fragment {

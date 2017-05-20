@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.gallery;
 
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,8 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.MainActivity;
+import fm.apps.kirtsim.nonogramcheat.R;
 
 public class GalleryActivity extends AppCompatActivity implements GalleryListFragment.GalleryFragmentListener ,
                                                                   SlideShowFragment.SlideShowFragmentListener {

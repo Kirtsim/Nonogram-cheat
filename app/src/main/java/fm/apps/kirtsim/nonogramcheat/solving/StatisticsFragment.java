@@ -1,4 +1,4 @@
-package fm.apps.kirtsim.nonogramcheat;
+package fm.apps.kirtsim.nonogramcheat.solving;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.gallery.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.R;
 
 /**
  *

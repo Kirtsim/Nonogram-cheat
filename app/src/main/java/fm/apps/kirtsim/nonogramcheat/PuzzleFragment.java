@@ -35,7 +35,7 @@ import java.lang.ref.WeakReference;
 import cellsAndDescriptions.PuzzleArraysController;
 import cellsAndDescriptions.PuzzleCentering;
 import db.DbHelperSingleton;
-import db.PuzzleImage;
+import fm.apps.kirtsim.nonogramcheat.gallery.PuzzleImage;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 public class PuzzleFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -60,7 +60,7 @@ public class PuzzleFragment extends Fragment implements AdapterView.OnItemSelect
     private DbHelperSingleton dbHelper;
     private byte centerFlag;
 
-    interface PuzzleFragmentListener {
+    public interface PuzzleFragmentListener {
         PuzzleImage onPuzzleImageRequestedForSaving();
     }
 
@@ -303,23 +303,6 @@ public class PuzzleFragment extends Fragment implements AdapterView.OnItemSelect
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-//            File cachePath = new File(getContext().getCacheDir(), "tempImages");
-//            if (!cachePath.exists())
-//                cachePath.mkdirs();
-//            Bitmap bitmap = getPuzzleBitmap();
-//            if (cachePath.exists() && savePuzzleToFile(bitmap, cachePath.getAbsolutePath() + "/img.png")) {
-//                File puzzlePath = new File(cachePath, "img.png");
-//                if (puzzlePath.exists()) {
-//                    Uri uri = FileProvider.getUriForFile(getContext(), "fm.apps.kirtsim.nonogramcheat.fileprovider", puzzlePath);
-//                    Intent shareI = new Intent(Intent.ACTION_SEND);
-//                    shareI.setType("image/png");
-//                    shareI.putExtra(Intent.EXTRA_STREAM, uri);
-//                    shareI.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                    startActivity(Intent.createChooser(shareI, "Choose app"));
-//                }
-//            }
 
     private void onSharePuzzleImage() {
         try {
