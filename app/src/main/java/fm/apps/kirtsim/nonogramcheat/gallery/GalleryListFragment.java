@@ -1,6 +1,5 @@
 package fm.apps.kirtsim.nonogramcheat.gallery;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;

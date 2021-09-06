@@ -130,11 +130,9 @@ public class LineSolver {
     private boolean setNextCurrentLine() {
         if (!indexesOfLinesToProcess.isEmpty()) {
             currLineIndex = indexesOfLinesToProcess.pop();
-//            if (numOfCellsToPaint[currLineIndex] > 0) {
-                currentLine = lines[currLineIndex];
-                inQueue[currLineIndex] = false;
-                return true;
-//            }
+            currentLine = lines[currLineIndex];
+            inQueue[currLineIndex] = false;
+            return true;
         }
         return false;
     }
@@ -284,24 +282,4 @@ public class LineSolver {
         tmplt ^= (UNKNOWN_CELL11 >>> (whiteCellIndex * 2));
         return tmplt; // apps: 00 00 01 10 10 10 00 00... for line with length 5
     }
-
-//    public String getVisual() {
-//        StringBuilder builder = new StringBuilder();
-//        for (int i = 0; i < rowCount; i++) {
-//            long line = lines[i] << 2;
-//            for (int c = 1; c <= colCount; c++) {
-//                if ((line & 0xC000000000000000L) == 0xC000000000000000L)
-//                    builder.append("? ");  // unknown (11)
-//                else if ((line & 0xC000000000000000L) == 0)
-//                    builder.append(". ");  // unknown (00)
-//                else if ((line & 0x4000000000000000L) == 0x4000000000000000L)
-//                    builder.append("- ");  // paint white
-//                else
-//                    builder.append("X ");  // paint black
-//                line <<= 2;
-//            }
-//            builder.append("\n");
-//        }
-//        return builder.toString();
-//    }
 }

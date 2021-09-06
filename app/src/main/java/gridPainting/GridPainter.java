@@ -14,8 +14,6 @@ import java.util.List;
  */
 
 public abstract class GridPainter {
-//    private static final String TAG = "GridPainter";
-
     Paint paint;
     private Paint flagPaint;
 

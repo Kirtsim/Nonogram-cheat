@@ -65,38 +65,6 @@ public class DbHelperSingleton extends SQLiteOpenHelper {
         }
     }
 
-//    public PuzzleImage getPuzzleImage(int id) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.query(
-//                PuzzleImgEntry.TABLE,
-//                getAllPuzzlePicEntryColumns(),
-//                PuzzleImgEntry.KEY_ID + "=?",
-//                new String[] {String.valueOf(id)},
-//                null, null, null, null);
-//        PuzzleImage puzzleImage = null;
-//        if (cursor != null && cursor.moveToFirst()) {
-//            puzzleImage = extractPuzzleImgFromCursor(cursor);
-//            cursor.close();
-//        }
-//        return puzzleImage == null ? new PuzzleImage() : puzzleImage;
-//    }
-
-//    private String[] getAllPuzzlePicEntryColumns() {
-//        String[] cols =  new String[PuzzleImgEntry.ATTRIBUTES_COUNT];
-//        cols[PuzzleImgEntry.I_ID]           = PuzzleImgEntry.KEY_ID;
-//        cols[PuzzleImgEntry.I_ROW_COUNT]    = PuzzleImgEntry.ROW_COUNT;
-//        cols[PuzzleImgEntry.I_COL_COUNT]    = PuzzleImgEntry.COL_COUNT;
-//        cols[PuzzleImgEntry.I_SOLVE_TIME_TOTAL]    = PuzzleImgEntry.SOLVE_TIME_TOTAL;
-//        cols[PuzzleImgEntry.I_SOLVE_TIME_LINE]    = PuzzleImgEntry.SOLVE_TIME_LINE;
-//        cols[PuzzleImgEntry.I_TOTAL_BTCK_ITER]    = PuzzleImgEntry.TOTAL_BTCK_ITER;
-//        cols[PuzzleImgEntry.I_LINES_PROCESSED]    = PuzzleImgEntry.LINES_PROCESSED;
-//        cols[PuzzleImgEntry.I_MAX_STACK_LOAD]    = PuzzleImgEntry.MAX_STACK_LOAD;
-//        cols[PuzzleImgEntry.I_SOLVED]       = PuzzleImgEntry.SOLVED;
-//        cols[PuzzleImgEntry.I_SAVE_DATE]    = PuzzleImgEntry.SAVE_DATE;
-//        cols[PuzzleImgEntry.I_FILE_PATH]    = PuzzleImgEntry.FILE_PATH;
-//        return cols;
-//    }
-
     private PuzzleImage extractPuzzleImgFromCursor(Cursor cursor) {
         try {
             PuzzleImage puzzle = new PuzzleImage(
@@ -155,32 +123,11 @@ public class DbHelperSingleton extends SQLiteOpenHelper {
         } while (cursor.moveToNext());
     }
 
-//    public int getPuzzlePicCount() {
-//        Cursor cursor = selectAll(PuzzleImgEntry.TABLE);
-//        if (cursor != null) {
-//            cursor.close();
-//            return cursor.getCount();
-//        }
-//        return 0;
-//    }
-
     private Cursor selectAll(String table) {
         final String SELECT_QUERY = "SELECT * FROM " +  table;
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery(SELECT_QUERY, null);
     }
-
-
-
-
-//    public int updatePuzzlePic(PuzzleImage puzzlePicture) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = createContentValuesFromPuzzlePic(puzzlePicture);
-//        return db.update(PuzzleImgEntry.TABLE,
-//                    values,
-//                    PuzzleImgEntry.KEY_ID + "= ?",
-//                    new String[] {String.valueOf(puzzlePicture.getId())});
-//    }
 
     public boolean deletePuzzlePic(PuzzleImage puzzlePicture) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -231,7 +178,6 @@ public class DbHelperSingleton extends SQLiteOpenHelper {
         static final String MAX_STACK_LOAD = "max_stack_load";
         static final String SAVE_DATE    = "save_date";
         static final String FILE_PATH    = "file_path";
-//        static final byte ATTRIBUTES_COUNT = 11;
 
         static final byte I_ID          = 0;
         static final byte I_ROW_COUNT   = 1;

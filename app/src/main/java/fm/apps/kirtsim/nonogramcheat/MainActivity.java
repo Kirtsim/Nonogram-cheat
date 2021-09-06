@@ -13,7 +13,6 @@ import fm.apps.kirtsim.nonogramcheat.user_input.PuzzleInputActivity;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
-//    public static final String APP_NAME_LOWER_CASE = "nonogram_cheat";
     public static boolean clearGlideMemory;
 
 

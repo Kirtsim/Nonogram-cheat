@@ -10,7 +10,6 @@ import android.graphics.Paint;
  */
 
 public class CellsGridPainter extends GridPainter {
-//    private static final String TAG = "CellsGridPainter";
     public static final int BLACK_CELL = 2;
     public static final int WHITE_CELL = 1;
     public static final int UNKNOWN_CELL = 0;
@@ -97,6 +96,4 @@ public class CellsGridPainter extends GridPainter {
                 cells[row][col] = UNKNOWN_CELL;
         }
     }
-
-
 }

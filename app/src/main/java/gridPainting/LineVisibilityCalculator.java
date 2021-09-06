@@ -1,7 +1,5 @@
 package gridPainting;
 
-import android.util.Log;
-
 /**
  *
  * Created by kharos on 13/04/2017.
@@ -134,6 +132,4 @@ class LineVisibilityCalculator {
         firstVisibleCoordinateAssigner.accept(firstVisibleCoordinate);
         lastVisibleCoordinateAssigner.accept(lastVisibleCoordinate);
     }
-
-
 }

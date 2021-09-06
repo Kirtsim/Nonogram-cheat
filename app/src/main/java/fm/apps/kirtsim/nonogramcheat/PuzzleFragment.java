@@ -413,7 +413,6 @@ public class PuzzleFragment extends Fragment implements AdapterView.OnItemSelect
         }
     }
 
-
     @SuppressWarnings("RestrictedApi")
     @Override
     public void onSaveInstanceState(Bundle outState) {

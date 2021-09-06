@@ -35,10 +35,6 @@ public class BackTracker {
     private int maxStackLoad;
 
 
-//    public BackTracker(Puzzle puzzle) {
-//        this(puzzle, new LineSolver(puzzle));
-//    }
-
     public BackTracker(Puzzle puzzle, LineSolver lineSolver) {
         this.puzzle = puzzle;
         this.lineSolver = lineSolver;

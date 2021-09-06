@@ -143,18 +143,6 @@ public class PuzzleImage implements Parcelable{
         this.saveDate = saveDate;
     }
 
-//    public void setRows(int rows) {
-//        this.rows = rows;
-//    }
-//
-//    public void setCols(int cols) {
-//        this.cols = cols;
-//    }
-//
-//    public void setSolved(boolean solved) {
-//        this.solved = solved;
-//    }
-
     @Override
     public String toString() {
         return "PuzzlePicture [_id: " + this.id +", _filePath: " + storeLocation + "]";

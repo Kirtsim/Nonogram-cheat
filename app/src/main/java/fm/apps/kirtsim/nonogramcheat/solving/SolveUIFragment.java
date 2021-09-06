@@ -198,8 +198,6 @@ public class SolveUIFragment extends Fragment {
         }
     }
 
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

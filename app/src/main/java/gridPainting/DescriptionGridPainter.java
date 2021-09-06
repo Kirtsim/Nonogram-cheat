@@ -10,7 +10,6 @@ import android.graphics.Rect;
  */
 
 public class DescriptionGridPainter extends GridPainter {
-//    private static final String TAG = "DescriptionGridPainter";
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
 

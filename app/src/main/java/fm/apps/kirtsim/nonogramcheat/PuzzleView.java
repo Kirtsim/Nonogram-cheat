@@ -142,18 +142,6 @@ public class PuzzleView extends View {
         return new Point(1, 1);
     }
 
-//    public boolean areAllPuzzleCellsFilled() {
-//        final byte[][] cells = puzzleCells.getCells();
-//        if (cells.length > 0 && cells[0].length > 0) {
-//            final int colCount = cells[0].length -1;
-//            for (int r = 0; r < cells.length; r++)
-//                if (cells[r][0] != colCount)
-//                    return false;
-//            return true;
-//        }
-//        return false;
-//    }
-
     public void setNextDescriptorToAdd(int value) {
         this.nextDescriptor = value;
     }
@@ -440,7 +428,6 @@ public class PuzzleView extends View {
         WeakReference<PuzzleView> puzzleViewRef;
         private Point touchIndexes;
 
-
         GestureListener(PuzzleView view) {
             super();
             puzzleViewRef = new WeakReference<>(view);
@@ -481,8 +468,6 @@ public class PuzzleView extends View {
                 painted = v.puzzleCells.onTouch(x, y, v.getCellValueToPaint(), touchIndexes);
             return painted;
         }
-
-
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
